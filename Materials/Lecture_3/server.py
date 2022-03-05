@@ -4,6 +4,7 @@ from fastapi import FastAPI, Path, Query, Response
 from config import CONFIG
 
 
+# Launch server with command 'uvicorn server:app --reload
 app = FastAPI()
 
 

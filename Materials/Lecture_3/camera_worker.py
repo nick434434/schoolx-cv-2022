@@ -29,7 +29,6 @@ def main(id: int, path: str, interval: int, timeout: int) -> None:
 
 if __name__ == "__main__":
     parser = ArgumentParser(usage="This is a program for writing camera frames to files that emulate the DB")
-    # "This is a program for writing camera frames to files that emulate the DB"
     parser.add_argument("--id", "-i", type=int, help="ID for camera objects")
     parser.add_argument("--path", "-p", type=str, help="Camera path for gaining access to frames")
     parser.add_argument("--interval", "-f", default=5, type=int, help="Each *interval*th frame is going to be written")
