@@ -1,7 +1,7 @@
 import os
 from json import dumps
-from fastapi import FastAPI, Path, Query, Response
-from config import CONFIG
+from fastapi import FastAPI, Response
+from Materials.config import CONFIG
 
 
 # Launch server with command 'uvicorn server:app --reload

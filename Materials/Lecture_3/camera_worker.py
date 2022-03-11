@@ -2,7 +2,7 @@ from os.path import join
 from time import time
 from argparse import ArgumentParser
 from camera import VideoProcessor
-from config import CONFIG
+from Materials.config import CONFIG
 
 
 def main(id: int, path: str, interval: int, timeout: int) -> None:
