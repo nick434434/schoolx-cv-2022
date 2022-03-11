@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Custom - no image and weights files
+.dat
+.npy
+.pkl
+.pickle
+.jpg
+.png
+.jpeg
