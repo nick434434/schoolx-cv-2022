@@ -1,5 +1,6 @@
 numpy
 opencv-python
-faiss-gpu
+faiss-cpu
+dlib
 fastapi
 uvicorn

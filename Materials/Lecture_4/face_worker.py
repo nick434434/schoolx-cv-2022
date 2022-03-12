@@ -31,6 +31,13 @@ def dlib_numpy_rect_converter(main_data, convert_to, additional_data=None):
         return main_data
 
 
+def draw_landmarks(image, landmarks):
+    draw_image = image.copy()
+    for x, y in landmarks:
+        draw_image = cv2.circle(draw_image, (int(x), int(y)), 2, (0, 255, 0), 2)
+    return draw_image
+
+
 class FaceWorker:
     __slots__ = [
         "image", "faces", "face_images", "landmarks", "features", "stage",
@@ -93,7 +100,6 @@ class FaceWorker:
             return False
         self.landmarks = []
         for face in self.faces:
-            res = self.landmark_finder(self.image, dlib_numpy_rect_converter(face, convert_to=dlib.rectangle))
             rect = dlib_numpy_rect_converter(face, convert_to=dlib.rectangle)
             self.landmarks.append(dlib_numpy_rect_converter(self.landmark_finder(self.image, rect),
                                                             convert_to=np.ndarray))
@@ -128,8 +134,10 @@ class FaceWorker:
         self.extract_features()
 
     def show(self, cap: str = ""):
-        for i, face in enumerate(self.face_images):
-            cv2.imshow(f"{cap} normalized face {i + 1}", face)
+        for i, face in enumerate(self.faces):
+            x0, y0, x1, y1 = map(int, dlib_numpy_rect_converter(face, convert_to=np.ndarray))
+            face_im = draw_landmarks(self.image[y0:y1, x0:x1], self.landmarks[i] - np.array((x0, y0), dtype=int))
+            cv2.imshow(f"{cap} face {i + 1}", face_im)
             cv2.waitKey(0)
 
     def __call__(self, image: np.ndarray = None):
