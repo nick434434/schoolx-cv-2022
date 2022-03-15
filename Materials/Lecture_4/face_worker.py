@@ -45,7 +45,7 @@ class FaceWorker:
         "detector_type", "landmarks_type", "recognizer_type",
     ]
 
-    def __init__(self, image: np.ndarray, detector_type: str = "dlib", landmarks_type: str = "dlib",
+    def __init__(self, image: np.ndarray = None, detector_type: str = "dlib", landmarks_type: str = "dlib",
                  recognizer_type: str = "dlib"):
         # Data init
         self.image: np.ndarray = image
@@ -143,6 +143,8 @@ class FaceWorker:
     def __call__(self, image: np.ndarray = None):
         if image is not None:
             self.image = image
+        elif self.image is None:
+            raise ValueError("if image was not setup before, you need to set it in object call")
         self.run()
 
 

@@ -1,7 +1,5 @@
 from typing import Union
 from base64 import b64encode
-import traceback
-from threading import Thread
 
 import numpy as np
 import cv2
@@ -11,7 +9,7 @@ class VideoProcessor:
     def __init__(self, video_path: Union[int, str], encode: bool = False):
         self.path = video_path
         self.cap = cv2.VideoCapture(self.path)
-        if not (isinstance(video_path, int) or isinstance(video_path, str)):
+        if not isinstance(video_path, (int, str)):
             raise TypeError
         if not self.cap.isOpened():
             raise ValueError(f"video_path parameter value ({video_path}) does not represent a valid video or stream")
