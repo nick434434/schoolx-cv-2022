@@ -4,3 +4,4 @@ faiss-cpu
 dlib
 fastapi
 uvicorn
+asyncio-mqtt

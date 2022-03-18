@@ -8,7 +8,7 @@ import numpy as np
 from cv2 import imread, waitKey
 from faiss import Index, IndexFlatL2, read_index, IDSelectorRange, IDSelectorBatch
 
-from face_worker import FaceWorker
+from Materials.Lecture_4.face_worker import FaceWorker
 from Materials.config import CONFIG
 
 
@@ -145,7 +145,7 @@ class FeatureStorage:
 
 
 if __name__ == "__main__":
-    fs = FeatureStorage(filename_index=CONFIG["faiss_index_path"], filename_users=CONFIG["faiss_users_path"],
+    fs = FeatureStorage(filename_index="data/test.index", filename_users="data/test_users.pkl",
                         num_features=128, empty_index=True)
 
     img = imread("./data/face_image.png")
