@@ -37,7 +37,7 @@ def process_message(data) -> List[str]:
     faces, features = get_faces_and_features(data)
     users_found = []
 
-    if len(features) > 0 and features[0].shape == (128,):
+    if len(features) > 0 and features[0].shape == (CONFIG["space_size"],):
         features = np.array(features)
         search_results = people.search(features, 1)
 
@@ -45,7 +45,7 @@ def process_message(data) -> List[str]:
             if distance < deciding_threshold:
                 users_found.append(username)
 
-        return users_found
+    return users_found
 
 
 async def run():

@@ -5,3 +5,4 @@ dlib
 fastapi
 uvicorn
 asyncio-mqtt
+scikit-image
