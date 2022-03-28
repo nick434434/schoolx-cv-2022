@@ -4,20 +4,20 @@ import numpy as np
 import cv2
 
 
-def convolve(image: np.ndarray, kernel: np.ndarray, preset: str = None):
+def convolve(image: np.ndarray, kernel: Union[Tuple[int, int], np.ndarray], preset: str = None):
     """
     Compute 2D convolution of an image with the user-provided kernel
     :param image: input image matrix
     :param kernel: convolutional 2D kernel describing the transformation
     :param preset: [optional] if this is set, one of default modes will be used. Kernel parameters serves as a size
-    :return: resulting image which is mathe,atically described as [image * kernel]
+    :return: resulting image which is mathematically described as [image * kernel]
     """
     if preset is not None:
         kernel = np.ones(tuple(kernel), dtype=np.float32)
     if preset == "median":
         kernel /= kernel.flatten().shape[0]
     elif preset == "gaussian":
-       pass
+        raise NotImplementedError
 
     return cv2.filter2D(image, -1, kernel)
 
@@ -62,8 +62,17 @@ def imshow(name: str, frame: np.ndarray, delay: int = 0):
 if __name__ == "__main__":
     i1 = cv2.imread("./data/Lenna.png")
     kernel = np.array([
-        [0, -1, 0],
-        [-1, 5, -1],
-        [0, -1, 0]
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [-1, -1, -1, -1, 17, -1, -1, -1, -1],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
+        [0, 0, 0, 0, -1, 0, 0, 0, 0],
     ])
-
+    sharpen = convolve(i1, kernel)
+    imshow("sharp", sharpen)
+    blurred = convolve(i1, (13, 13), preset="median")
+    imshow("blur", blurred)
