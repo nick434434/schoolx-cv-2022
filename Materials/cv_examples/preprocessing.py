@@ -12,12 +12,15 @@ def convolve(image: np.ndarray, kernel: Union[Tuple[int, int], np.ndarray], pres
     :param preset: [optional] if this is set, one of default modes will be used. Kernel parameters serves as a size
     :return: resulting image which is mathematically described as [image * kernel]
     """
-    if preset is not None:
-        kernel = np.ones(tuple(kernel), dtype=np.float32)
     if preset == "median":
+        kernel = np.ones(tuple(kernel), dtype=np.float32)
         kernel /= kernel.flatten().shape[0]
-    elif preset == "gaussian":
-        raise NotImplementedError
+    elif preset == "sharpen":
+        height, width = kernel
+        kernel = np.zeros(kernel, dtype=np.float32)
+        kernel[:, width // 2] = -1
+        kernel[height // 2, :] = -1
+        kernel[height // 2, width // 2] = -1 * kernel.sum()
 
     return cv2.filter2D(image, -1, kernel)
 
